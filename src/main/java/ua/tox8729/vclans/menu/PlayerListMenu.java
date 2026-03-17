@@ -16,12 +16,10 @@ import ua.tox8729.vclans.utils.MessageUtil;
 import java.util.*;
 
 public class PlayerListMenu extends ClanMenu {
-    private final MenuManager menuManager;
     private final List<Integer> playerSlots;
 
     public PlayerListMenu(VClans plugin, ClanManager clanManager, MenuManager menuManager, FileConfiguration menuConfig) {
-        super(plugin, clanManager, menuConfig);
-        this.menuManager = menuManager;
+        super(plugin, clanManager, menuManager, menuConfig);
         this.playerSlots = initializePlayerSlots(menuConfig);
     }
 
@@ -58,27 +56,21 @@ public class PlayerListMenu extends ClanMenu {
     private void populatePlayerHeads(Inventory inventory, ClanManager.Clan clan, int size) {
         String leaderRoleText = HexUtil.translate(menuConfig.getString("leader-role-text", "&#F0DB46Лидер"));
         String memberRoleText = HexUtil.translate(menuConfig.getString("member-role-text", "&7Учасник"));
-        String onlineText = HexUtil.translate(menuConfig.getString("online-text", "D13E0Онлайн"));
-        String offlineText = HexUtil.translate(menuConfig.getString("offline-text", "&#EF3434Оффлайн"));
+        String onlineText     = HexUtil.translate(menuConfig.getString("online-text", "D13E0Онлайн"));
+        String offlineText    = HexUtil.translate(menuConfig.getString("offline-text", "&#EF3434Оффлайн"));
         String headDisplayName = HexUtil.translate(menuConfig.getString("items.player-head.display-name", "&6%player_name%"));
         List<String> headLoreTemplate = menuConfig.getStringList("items.player-head.lore");
         boolean hideAttributes = menuConfig.getBoolean("items.player-head.hide-attributes", false);
 
         int slotIndex = 0;
         for (UUID memberId : clan.getMembers()) {
-            if (slotIndex >= playerSlots.size()) {
-                break;
-            }
+            if (slotIndex >= playerSlots.size()) break;
             int slot = playerSlots.get(slotIndex++);
-            if (slot < 0 || slot >= size) {
-                continue;
-            }
+            if (slot < 0 || slot >= size) continue;
 
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta meta = (SkullMeta) head.getItemMeta();
-            if (meta == null) {
-                continue;
-            }
+            if (meta == null) continue;
 
             if (hideAttributes) {
                 meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES);
@@ -88,7 +80,7 @@ public class PlayerListMenu extends ClanMenu {
             String playerName = Optional.ofNullable(offlinePlayer.getName()).orElse("Неизвестно");
             meta.setOwningPlayer(offlinePlayer);
 
-            String role = memberId.equals(clan.getLeader()) ? leaderRoleText : memberRoleText;
+            String role         = memberId.equals(clan.getLeader()) ? leaderRoleText : memberRoleText;
             String onlineStatus = Bukkit.getPlayer(memberId) != null ? onlineText : offlineText;
 
             meta.setDisplayName(headDisplayName.replace("%player_name%", playerName));

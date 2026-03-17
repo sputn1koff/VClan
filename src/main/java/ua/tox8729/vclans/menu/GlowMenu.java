@@ -10,11 +10,9 @@ import ua.tox8729.vclans.utils.HexUtil;
 import ua.tox8729.vclans.utils.MessageUtil;
 
 public class GlowMenu extends ClanMenu {
-    private final MenuManager menuManager;
 
     public GlowMenu(VClans plugin, ClanManager clanManager, MenuManager menuManager, FileConfiguration menuConfig) {
-        super(plugin, clanManager, menuConfig);
-        this.menuManager = menuManager;
+        super(plugin, clanManager, menuManager, menuConfig);
     }
 
     @Override

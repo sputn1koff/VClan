@@ -1,0 +1,69 @@
+title: "&0Клановый магазин: %clan_name%"
+size: 54
+
+# Анимация при открытии меню
+animation:
+  enabled: true
+  type: "RANDOM" # CENTER, RIGHT, LEFT, TOP_DOWN, BOTTOM_UP, RANDOM
+  delay-ticks: 2
+  filler-material: "AIR"
+  filler-name: ""
+  sound:
+    enabled: true
+    name: "BLOCK_METAL_PLACE"
+    volume: 0.5
+    pitch: 1.5
+
+items:
+  health_boost:
+    material: POTION
+    display-name: "&#37B128Прилив здоровья"
+    lore:
+      - ""
+      - "&#1FAD0DДобавляет &fэффект &#AD0D0Dздоровья II"
+      - "&fНа 30 секунд"
+      - "&fСтоимость: &#FFA100%cost% поинтов"
+      - ""
+    cost: 100
+    currency: points
+    potion-color: "255,0,0" # необязательное поле
+    commands:
+      - "effect give %player% minecraft:health_boost 30 1"
+    slot: 10
+    hide-attributes: true
+  vault_item:
+    material: ZOMBIE_SPAWN_EGG
+    display-name: "&#125E08Яйцо зомби"
+    lore:
+      - ""
+      - "&#1FAD0DДаёт &fяйцо призыва зомби"
+      - "&fСтоимость: &#FFA100%cost% монет"
+      - ""
+    cost: 50
+    currency: vault
+    commands:
+      - "minecraft:give %player% minecraft:zombie_spawn_egg 1"
+    slot: 12
+    hide-attributes: true
+  decor:
+    material: GRAY_STAINED_GLASS_PANE
+    display-name: "&7 "
+    slots:
+      - 45
+      - 46
+      - 47
+      - 48
+      - 50
+      - 51
+      - 52
+      - 53
+  back:
+    material: ARROW
+    slot: 49
+    display-name: "&#FC0F0FНазад"
+    lore: [ ]
+    hide-attributes: true
+    sound: ITEM_BOOK_PAGE_TURN
+
+messages:
+  leader-only: "&cЭта команда доступна только лидеру клана!"

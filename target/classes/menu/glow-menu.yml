@@ -1,0 +1,131 @@
+title: "&0Настройка свечения: %clan_name%"
+size: 45
+glow-enabled-text: "&#06C500включено"
+glow-disabled-text: "&#C50000выключено"
+
+# Анимация при открытии меню
+animation:
+  enabled: true
+  type: "RANDOM" # CENTER, RIGHT, LEFT, TOP_DOWN, BOTTOM_UP, RANDOM
+  delay-ticks: 2
+  filler-material: "AIR"
+  filler-name: ""
+  sound:
+    enabled: true
+    name: "BLOCK_METAL_PLACE"
+    volume: 0.5
+    pitch: 1.5
+
+items:
+  toggle-glow:
+    material: LANTERN
+    display-name: "&fПодсветка брони: %glow_status%"
+    lore:
+      - ""
+      - "&fНажмите, чтобы &#FF4500%glow_toggle_action%"
+      - "&fподсветку &#FF4500соклановцев"
+      - ""
+    slot: 4
+    sound: BLOCK_NOTE_BLOCK_PLING
+    leader-only: true
+
+  color-black:
+    material: BLACK_DYE
+    display-name: "&#E94F2Dчерный"
+    lore: []
+    slot: 11
+    color: "0,0,0"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-white:
+    material: WHITE_DYE
+    display-name: "&#E94F2Dбелый"
+    lore: []
+    slot: 12
+    color: "255,255,255"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-fuchsia:
+    material: MAGENTA_DYE
+    display-name: "&#E94F2Dрозовый"
+    lore: []
+    slot: 13
+    color: "255,0,255"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-red:
+    material: RED_DYE
+    display-name: "&#E94F2Dкрасный"
+    lore: []
+    slot: 14
+    color: "255,0,0"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-yellow:
+    material: YELLOW_DYE
+    display-name: "&#E94F2Dжелтый"
+    lore: []
+    slot: 15
+    color: "255,255,0"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-lime:
+    material: LIME_DYE
+    display-name: "&#E94F2Dлаймовый"
+    lore: []
+    slot: 20
+    color: "0,255,0"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-green:
+    material: GREEN_DYE
+    display-name: "&#E94F2Dзеленый"
+    lore: []
+    slot: 21
+    color: "0,128,0"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-aqua:
+    material: CYAN_DYE
+    display-name: "&#E94F2Dголубой"
+    lore: []
+    slot: 22
+    color: "0,255,255"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-blue:
+    material: BLUE_DYE
+    display-name: "&#E94F2Dсиний"
+    lore: []
+    slot: 23
+    color: "0,0,255"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  color-orange:
+    material: ORANGE_DYE
+    display-name: "&#E94F2Dоранжевый"
+    lore: [ ]
+    slot: 24
+    color: "255,140,0"
+    leader-only: true
+    sound: UI_BUTTON_CLICK
+
+  back:
+    material: ARROW
+    slot: 40
+    display-name: "&#FC0F0FНазад"
+    lore: []
+    hide-attributes: true
+    sound: ITEM_BOOK_PAGE_TURN
+
+messages:
+  leader-only: "&cЭта команда доступна только лидеру клана!"

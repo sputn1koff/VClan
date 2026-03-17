@@ -11,15 +11,11 @@ import ua.tox8729.vclans.managers.PointsManager;
 import ua.tox8729.vclans.utils.HexUtil;
 import ua.tox8729.vclans.utils.MessageUtil;
 
-import java.util.UUID;
-
 public class ShopMenu extends ClanMenu {
-    private final MenuManager menuManager;
     private final PointsManager pointsManager;
 
     public ShopMenu(VClans plugin, ClanManager clanManager, MenuManager menuManager, PointsManager pointsManager, FileConfiguration menuConfig) {
-        super(plugin, clanManager, menuConfig);
-        this.menuManager = menuManager;
+        super(plugin, clanManager, menuManager, menuConfig);
         this.pointsManager = pointsManager;
     }
 
@@ -81,12 +77,10 @@ public class ShopMenu extends ClanMenu {
 
     private boolean handlePointsPurchase(Player player, ClanManager.Clan clan, double cost, String itemKey) {
         int playerPoints = pointsManager.getPoints(player.getUniqueId());
-
         if (playerPoints < cost) {
             MessageUtil.sendError(player, "shop-not-enough-points", "amount", String.format("%.0f", cost));
             return false;
         }
-
         pointsManager.setPoints(null, player, playerPoints - (int) cost);
         return true;
     }
@@ -96,22 +90,17 @@ public class ShopMenu extends ClanMenu {
             MessageUtil.sendError(player, "shop-not-enough-money", "amount", String.format("%.0f", cost));
             return false;
         }
-
         EconomyResponse response = plugin.getEconomy().withdrawPlayer(player, cost);
         if (!response.transactionSuccess()) {
             MessageUtil.sendError(player, "shop-not-enough-money", "amount", String.format("%.0f", cost));
             return false;
         }
-
         return true;
     }
 
     private void executeCommands(Player player, ClanManager.Clan clan, String itemKey) {
         String configPath = "items." + itemKey + ".commands";
-        if (!menuConfig.contains(configPath)) {
-            return;
-        }
-
+        if (!menuConfig.contains(configPath)) return;
         for (String command : menuConfig.getStringList(configPath)) {
             command = command.replace("%player%", player.getName())
                     .replace("%clan_name%", clan.getName());

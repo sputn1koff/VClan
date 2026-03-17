@@ -1,0 +1,19 @@
+name: VClans
+version: '1.0'
+main: ua.tox8729.vclans.VClans
+api-version: '1.16'
+author: [ Tox_8729 ]
+depend: [PlaceholderAPI, Vault, ProtocolLib]
+
+commands:
+  clan:
+    description: Основная команда
+
+  vclans:
+    description: Для админов
+
+  permissions:
+    vclans.reload:
+      default: op
+    vclans.points:
+      default: op

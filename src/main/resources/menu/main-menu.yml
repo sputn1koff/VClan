@@ -4,6 +4,20 @@
 
 title: "&0Клан: %clan_name%"  # название меню, точнее его тайтл
 size: 45   # размер меню в слотах
+
+# Анимация при открытии меню
+animation:
+  enabled: true
+  type: "RANDOM" # CENTER, RIGHT, LEFT, TOP_DOWN, BOTTOM_UP, RANDOM
+  delay-ticks: 2
+  filler-material: "AIR"
+  filler-name: ""
+  sound:
+    enabled: true
+    name: "BLOCK_METAL_PLACE"
+    volume: 0.5
+    pitch: 1.5
+
 items:
   decor: # айди
     material: GRAY_STAINED_GLASS_PANE  # материал предмета в меню
@@ -13,7 +27,7 @@ items:
     hide-attributes: true  # скрывать атрибуты или нет
 
   show-info:   # айди
-    material: PAPER # материал
+    material: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjVlNDE3NDIzNmJmYWExYmUxMzVjMGI5OGE4ODBkM2ZmNjYzMzk0MzNjYzBkMDI4MTM4YmQ1OWFjZjdjOWQ5YiJ9fX0=' # материал
     slot: 20 # слот
     display-name: "&#E9BC1A[✉] &fИнформация о клане" # название
     lore: # описание

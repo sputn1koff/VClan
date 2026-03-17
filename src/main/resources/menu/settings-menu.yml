@@ -7,6 +7,20 @@ presets:
     - 100.0
     - 1000.0
     - 10000.0
+
+# Анимация при открытии меню
+animation:
+  enabled: true
+  type: "RANDOM" # CENTER, RIGHT, LEFT, TOP_DOWN, BOTTOM_UP, RANDOM
+  delay-ticks: 2
+  filler-material: "AIR"
+  filler-name: ""
+  sound:
+    enabled: true
+    name: "BLOCK_METAL_PLACE"
+    volume: 0.5
+    pitch: 1.5
+
 items:
   decor:
     material: BLACK_STAINED_GLASS_PANE

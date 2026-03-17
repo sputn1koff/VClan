@@ -1,0 +1,79 @@
+title: "Настройки клана: %clan_name%"
+size: 36
+pvp-enabled-text: "&#06C500Включено"
+pvp-disabled-text: "&#C50000Выключено"
+presets:
+  amounts:
+    - 100.0
+    - 1000.0
+    - 10000.0
+
+# Анимация при открытии меню
+animation:
+  enabled: true
+  type: "RANDOM" # CENTER, RIGHT, LEFT, TOP_DOWN, BOTTOM_UP, RANDOM
+  delay-ticks: 2
+  filler-material: "AIR"
+  filler-name: ""
+  sound:
+    enabled: true
+    name: "BLOCK_METAL_PLACE"
+    volume: 0.5
+    pitch: 1.5
+
+items:
+  decor:
+    material: BLACK_STAINED_GLASS_PANE
+    slots:
+      -
+    display-name: "&6Декор"
+    lore: []
+    hide-attributes: true
+
+  toggle-pvp:
+    material: SCUTE
+    slot: 11
+    display-name: "&#BD1111Урон &fпо &#009BEEсоклановцам"
+    lore:
+      - ""
+      - "&fРежим PvP: %pvp_status%"
+      - "&fНажмите, чтобы &#449BDB%pvp_toggle_action% &fPvP"
+      - ""
+    leader-only: true
+    hide-attributes: true
+  deposit:
+    material: GOLD_INGOT
+    slot: 13
+    display-name: "&#26EA27Внести &fмонеты в клан"
+    lore:
+      - ""
+      - "&fВаш баланс: &#EAC826%player_balance%"
+      - "&fВыбранная сумма: &a%selected_amount%"
+      - ""
+      - "&#E94F2DЛКМ &7- &fВнести сумму"
+      - "&#E94F2DПКМ &7- &fПереключить сумму"
+      - ""
+    hide-attributes: true
+  withdraw:
+    material: CONDUIT
+    slot: 15
+    display-name: "&#26EA27Вывести &fмонеты из клана"
+    lore:
+      - ""
+      - "&fБаланс клана: &#EAC826%balance%"
+      - "&fВыбранная сумма: &a%selected_amount%"
+      - ""
+      - "&#E94F2DЛКМ &7- &fВывести сумму"
+      - "&#E94F2DПКМ &7- &fПереключить сумму"
+      - ""
+    hide-attributes: true
+  back:
+    material: ARROW
+    slot: 31
+    display-name: "&#FC0F0FНазад"
+    lore: []
+    hide-attributes: true
+    sound: ITEM_BOOK_PAGE_TURN
+
+messages:
+  leader-only: "&cЭта команда доступна только лидеру клана!"

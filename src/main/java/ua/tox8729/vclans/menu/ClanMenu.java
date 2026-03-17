@@ -12,16 +12,59 @@ import ua.tox8729.vclans.utils.HexUtil;
 import ua.tox8729.vclans.utils.MessageUtil;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
+import java.lang.reflect.Field;
 
 public abstract class ClanMenu {
     protected final VClans plugin;
     protected final ClanManager clanManager;
+    protected final MenuManager menuManager; // <-- добавлено
     protected FileConfiguration menuConfig;
 
-    public ClanMenu(VClans plugin, ClanManager clanManager, FileConfiguration menuConfig) {
+    // -------------------------------------------------------
+    // Base64 skull helpers (reflection, no authlib import)
+    // -------------------------------------------------------
+
+    private static boolean isBase64Texture(String value) {
+        if (value == null || value.length() < 20) return false;
+        try {
+            String decoded = new String(Base64.getDecoder().decode(value));
+            return decoded.contains("textures");
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private ItemStack buildSkullFromBase64(String base64) {
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        org.bukkit.inventory.meta.SkullMeta meta = (org.bukkit.inventory.meta.SkullMeta) skull.getItemMeta();
+        if (meta == null) return skull;
+        try {
+            Class<?> gpClass   = Class.forName("com.mojang.authlib.GameProfile");
+            Class<?> propClass = Class.forName("com.mojang.authlib.properties.Property");
+            Object profile  = gpClass.getConstructor(UUID.class, String.class)
+                    .newInstance(UUID.nameUUIDFromBytes(base64.getBytes()), "CustomSkull");
+            Object property = propClass.getConstructor(String.class, String.class)
+                    .newInstance("textures", base64);
+            Object propMap  = gpClass.getMethod("getProperties").invoke(profile);
+            propMap.getClass().getMethod("put", Object.class, Object.class).invoke(propMap, "textures", property);
+            Field pf = meta.getClass().getDeclaredField("profile");
+            pf.setAccessible(true);
+            pf.set(meta, profile);
+        } catch (Exception ex) {
+            plugin.getLogger().warning("[VClans] Could not apply skull texture: " + ex.getMessage());
+        }
+        skull.setItemMeta(meta);
+        return skull;
+    }
+
+    public ClanMenu(VClans plugin, ClanManager clanManager, MenuManager menuManager, FileConfiguration menuConfig) {
         this.plugin = plugin;
         this.clanManager = clanManager;
+        this.menuManager = menuManager; // <-- добавлено
         this.menuConfig = menuConfig;
     }
 
@@ -29,23 +72,28 @@ public abstract class ClanMenu {
 
     protected ItemStack createItem(ClanManager.Clan clan, Player player, String configPath, String itemKey) {
         String materialName = menuConfig.getString(configPath + ".material", "PAPER");
-        Material material = Material.getMaterial(materialName);
-        if (material == null) material = Material.BOOK;
 
-        ItemStack item = new ItemStack(material);
+        ItemStack item;
+        Material material;
+        if (isBase64Texture(materialName)) {
+            item     = buildSkullFromBase64(materialName);
+            material = Material.PLAYER_HEAD;
+        } else {
+            material = Material.getMaterial(materialName);
+            if (material == null) material = Material.BOOK;
+            item = new ItemStack(material);
+        }
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return item;
 
         boolean hideAttributes = menuConfig.getBoolean(configPath + ".hide-attributes", false);
         if (hideAttributes) {
             meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES);
-            // Для зелий скрываем информацию об эффектах
             if (material == Material.POTION || material == Material.SPLASH_POTION || material == Material.LINGERING_POTION) {
                 meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_POTION_EFFECTS);
             }
         }
 
-        // Применение цвета зелья, если указано
         if (material == Material.POTION || material == Material.SPLASH_POTION || material == Material.LINGERING_POTION) {
             String colorString = menuConfig.getString(configPath + ".potion-color");
             if (colorString != null && !colorString.isEmpty()) {
@@ -144,6 +192,7 @@ public abstract class ClanMenu {
             MessageUtil.sendError(player, "not-in-clan");
             return;
         }
-        player.openInventory(inventory);
+        // Было: player.openInventory(inventory);
+        menuManager.openWithAnimation(player, inventory, menuConfig);
     }
 }

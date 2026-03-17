@@ -14,13 +14,11 @@ import ua.tox8729.vclans.utils.MessageUtil;
 import java.util.*;
 
 public class SettingsMenu extends ClanMenu {
-    private final MenuManager menuManager;
     private final Map<UUID, Integer> selectedAmountIndex;
     private final List<Double> presetAmounts;
 
     public SettingsMenu(VClans plugin, ClanManager clanManager, MenuManager menuManager, FileConfiguration menuConfig) {
-        super(plugin, clanManager, menuConfig);
-        this.menuManager = menuManager;
+        super(plugin, clanManager, menuManager, menuConfig);
         this.selectedAmountIndex = new HashMap<>();
         this.presetAmounts = new ArrayList<>();
 

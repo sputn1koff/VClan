@@ -55,6 +55,14 @@ public class VClans extends JavaPlugin {
         ProtocolLibrary.getProtocolManager().addPacketListener(new GlowListener(this, clanManager, clanManager.getClanGlow()));
 
         new VClansPlaceholderExpansion(clanManager, pointsManager).register();
+
+        getLogger().info(" ╔══════════");
+        getLogger().info(" ║ Плагин " + this.getName() + " ver. " + getDescription().getVersion());
+        getLogger().info(" ║ Был успешно запущен! Переписано с любовью <3");
+        getLogger().info(" ║ Занимался модификацией плагина: t.me/sputn1koff");
+        getLogger().info(" ╠══════════");
+        getLogger().info(" ║ ▶ Оригинальный плагин: github.com/Toxez/VClan");
+        getLogger().info(" ╚══════════");
     }
 
     @Override
@@ -62,6 +70,13 @@ public class VClans extends JavaPlugin {
         if (databaseManager != null) {
             databaseManager.close();
         }
+        getLogger().info(" ╔══════════");
+        getLogger().info(" ║ Плагин " + this.getName() + " ver. " + getDescription().getVersion());
+        getLogger().info(" ║ Был успешно выключен! Переписано с любовью <3");
+        getLogger().info(" ║ Занимался модификацией плагина: t.me/sputn1koff");
+        getLogger().info(" ╠══════════");
+        getLogger().info(" ║ ▶ Оригинальный плагин: github.com/Toxez/VClan");
+        getLogger().info(" ╚══════════");
     }
 
     public DatabaseManager getDatabaseManager() {
